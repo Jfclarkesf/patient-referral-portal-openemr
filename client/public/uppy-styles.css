@@ -1,0 +1,15 @@
+.uppy-Root {
+  font-family: Roboto, sans-serif;
+}
+
+.uppy-Dashboard {
+  font-family: Roboto, sans-serif;
+}
+
+.uppy-DashboardContent-bar {
+  background-color: hsl(207 85% 42%);
+}
+
+.uppy-DashboardContent-title {
+  font-weight: 500;
+}

@@ -1,0 +1,28 @@
+node_modules
+dist
+server/public
+vite.config.ts.*
+*.tar.gz
+
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Logs & runtime
+logs
+*.log
+
+# OS / editor junk
+.DS_Store
+._*
+*.swp
+*.swo
+*.swn
+
+# Stray binaries / local tooling
+*.exe
+*.dll
+
+# Local dev artifacts
+attached_assets

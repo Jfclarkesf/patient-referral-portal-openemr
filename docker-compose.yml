@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: patient_referral
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: patient_referral
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT:-15432}:5432"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U patient_referral"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    network_mode: host
+    environment:
+      NODE_ENV: production
+      # Port the app listens on (host networking). Change APP_PORT in .env if it is taken.
+      PORT: ${APP_PORT:-3001}
+      STANDALONE_MODE: "true"
+      REPL_ID: standalone-deployment
+      DATABASE_URL: postgresql://patient_referral:${POSTGRES_PASSWORD}@127.0.0.1:${DB_PORT:-15432}/patient_referral
+      PGHOST: "127.0.0.1"
+      PGPORT: ${DB_PORT:-15432}
+      PGUSER: patient_referral
+      PGPASSWORD: ${POSTGRES_PASSWORD}
+      PGDATABASE: patient_referral
+      SESSION_SECRET: ${SESSION_SECRET}
+      # Leave empty: the browser setup wizard creates the admin account on first visit
+      DEFAULT_ADMIN_PASSWORD: ${DEFAULT_ADMIN_PASSWORD:-}
+      TRUST_PROXY: "true"
+      # Optional: OpenEMR is normally set up in the browser at /setup.
+      # These are only used if the setup wizard hasn't registered a client.
+      APP_DOMAIN: ${APP_DOMAIN:-}
+      APP_PROTOCOL: ${APP_PROTOCOL:-https}
+      OPENEMR_BASE_URL: ${OPENEMR_BASE_URL:-}
+      OPENEMR_CLIENT_ID: ${OPENEMR_CLIENT_ID:-}
+      OPENEMR_CLIENT_SECRET: ${OPENEMR_CLIENT_SECRET:-}
+      OPENEMR_PRIVATE_KEY: ${OPENEMR_PRIVATE_KEY:-}
+      OPENEMR_DOCUMENT_CATEGORY: ${OPENEMR_DOCUMENT_CATEGORY:-}
+      MAILGUN_API_KEY: ${MAILGUN_API_KEY:-}
+      MAILGUN_DOMAIN: ${MAILGUN_DOMAIN:-}
+      MAILGUN_FROM_EMAIL: ${MAILGUN_FROM_EMAIL:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
