@@ -18,6 +18,7 @@ problems, medications and attached documents directly in **OpenEMR**.
 - [Configuration](#configuration)
 - [Development](#development)
 - [Security notes](#security-notes)
+- [Acknowledgments](#acknowledgments)
 
 ## Features
 
@@ -398,6 +399,17 @@ scripts/       One-off maintenance scripts
 - If you set `DEFAULT_ADMIN_PASSWORD`, change it on first login.
 - This project handles health information. Review your own regulatory
   obligations (e.g. HIPAA) before deploying with real patient data.
+
+## Acknowledgments
+
+Conceived, designed and developed by **Julian Clarke**.
+
+Built for and tested at **Unemori Dermatology Associates**, with clinical
+workflow input from **Dr. Patrick Unemori**.
+
+Development assisted by **Claude** (Anthropic).
+
+Screenshots use a demo OpenEMR instance with fictional patient data.
 
 ## License
 
