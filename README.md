@@ -413,4 +413,12 @@ Screenshots use a demo OpenEMR instance with fictional patient data.
 
 ## License
 
-[MIT](LICENSE)
+Copyright (c) 2026 Julian Clarke.
+
+This project is licensed under the [GNU Affero General Public License v3.0](LICENSE)
+(AGPL-3.0-only). You can use, modify and self-host it freely. If you run a
+modified version for others over a network, you must make your changes
+available under the same license.
+
+For custom development, installation help or other licensing arrangements,
+contact Julian Clarke.
